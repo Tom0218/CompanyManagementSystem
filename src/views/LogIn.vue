@@ -16,7 +16,6 @@ export default{
 
 <template>
 <div class="body" >
-  <h1>登入介面</h1>
   <label>帳號:</label>
   <input type="text" id="account">
   <br/>
