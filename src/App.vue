@@ -1,23 +1,15 @@
-<script>
+<script setup>
 import { RouterLink, RouterView } from 'vue-router'
-export default{
-  components:{
-    RouterView,
-  },
-}
+import Header from './components/Header.vue'
 </script>
 
 <template>
-  <div class="body">
+    <div class="header">
+        <Header/>
+    </div>
     <RouterView />
-  </div>
-
 </template>
 
-<style lang="scss" scoped>
-.body{
-  height: auto;
-  width: 100vw;
-  background-color: rgb(9, 38, 53);
-}
+<style scoped>
+
 </style>
