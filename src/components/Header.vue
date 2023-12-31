@@ -9,11 +9,11 @@ export default{
 <template>
     <nav>
         <RouterLink to="/" class="Home Btn  shape-ex1"><p>首頁</p></RouterLink>
-        <RouterLink to="SignIn" class="Home Btn  shape-ex1"><p>簽到</p></RouterLink>
-        <RouterLink to="Staff" class="Home Btn  shape-ex1"><p>員工管理</p></RouterLink>
-        <RouterLink to="Attendance" class="Home Btn  shape-ex1"><p>差勤管理</p></RouterLink>
-        <RouterLink to="Payroll" class="Home Btn  shape-ex1"><p>薪資管理</p></RouterLink>
-        <RouterLink to="LogIn" class="Home Btn  shape-ex1"><p>登入</p></RouterLink>
+        <RouterLink to="/SignIn" class="Home Btn  shape-ex1"><p>簽到</p></RouterLink>
+        <RouterLink to="/Staff" class="Home Btn  shape-ex1"><p>員工管理</p></RouterLink>
+        <RouterLink to="/Attendance" class="Home Btn  shape-ex1"><p>差勤管理</p></RouterLink>
+        <RouterLink to="/Payroll" class="Home Btn  shape-ex1"><p>薪資管理</p></RouterLink>
+        <RouterLink to="/LogIn" class="Home Btn  shape-ex1"><p>登入</p></RouterLink>
     </nav>
 </template>
 <style lang="scss" scoped>

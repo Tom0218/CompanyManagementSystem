@@ -36,7 +36,25 @@ const router = createRouter({
     {
       path: '/Staff',
       name: 'Staff',
-      component: () => import('../views/Staff.vue')
+      component: () => import('../views/Staff.vue'),
+        children:[
+          {
+          path:'StaffSearch',
+          component: () => import('../components/Staff/StaffSearch.vue'),
+          },
+          {
+          path:'StaffCreate',
+          component: () => import('../components/Staff/StaffCreate.vue'),
+          },
+          {
+          path:'StaffUpdate',
+          component: () => import('../components/Staff/StaffUpdate.vue'),
+          },
+          {
+          path:'StaffDelete',
+          component: () => import('../components/Staff/StaffDelete.vue'),
+          },
+      ]
     },
   ]
 })
