@@ -1,16 +1,47 @@
-<script></script>
+<script>
+import { RouterLink,RouterView } from 'vue-router';
+import StaffHeader from '../components/Staff/StaffHeader.vue';
+export default{
+    data(){
+        return{
+            
+        }
+    },
+
+    components:{
+        RouterLink,
+        RouterView,
+        StaffHeader
+    },
+
+    methods:{
+
+    },
+    
+}
+</script>
+
 <template>
-    <div class="StaffBody">
-        <h1>員工管理</h1>
-    </div>
+        <StaffHeader/>
+        <div class="context">
+            <RouterView/>
+        </div>
 </template>
+
 <style lang="scss" scoped>
+.context {
+    min-height: 91.8vh;
+}
+
+
+label{
+    color: whitesmoke;
+    margin: 0 20px;
+    font-weight: bold;
+}
+
 h1{
     color: whitesmoke;
 }
-.StaffBody{
-    height: 100vh;
-    width: 100vw;
-    background-color: #092635;
-}
+
 </style>
