@@ -157,7 +157,7 @@ export default{
 
 }
 table{
-    width: 100%;
+    width: auto;
     background-color: whitesmoke;
 }
 tr{
@@ -208,6 +208,5 @@ label{
     background-color: #092635;
     overflow: auto;
     width: auto;
-
 }
 </style>

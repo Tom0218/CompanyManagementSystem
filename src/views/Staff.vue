@@ -13,26 +13,20 @@ export default{
         RouterView,
         StaffHeader
     },
-
-    methods:{
-
-    },
-    
 }
 </script>
 
 <template>
-        <StaffHeader/>
+        <!-- <StaffHeader/> -->
         <div class="context">
             <RouterView/>
         </div>
 </template>
 
 <style lang="scss" scoped>
-.context {
-    min-height: 91.8vh;
+.context{
+    height: 100vh;
 }
-
 
 label{
     color: whitesmoke;

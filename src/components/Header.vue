@@ -10,12 +10,59 @@ export default{
 </script>
 <template>
     <div class="mainArea">
-        <RouterLink to="/" class="Home Btn  shape-ex1" ><p>首頁</p></RouterLink>
-        <RouterLink to="/SignIn" class="Home Btn  shape-ex1"  ><p>簽到</p></RouterLink>
-        <RouterLink to="/Staff" class="Home Btn  shape-ex1" ><p>員工管理</p></RouterLink>
-        <RouterLink to="/Attendance" class="Home Btn  shape-ex1"  ><p>差勤管理</p></RouterLink>
+        <div class="dropdown">
+            <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                首頁
+            </a>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary " data-bs-toggle="dropdown" aria-expanded="false">
+                簽到
+            </button>
+        </div>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                員工管理
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="/Staff/StaffSearch">查詢員工資料</a></li>
+                <li><a class="dropdown-item" href="/Staff/StaffCreate">新增員工資料</a></li>
+                <li><a class="dropdown-item" href="/Staff/StaffDelete">刪除員工資料</a></li>
+                <li><a class="dropdown-item" href="/Staff/StaffUpdate">修改員工資料</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                差勤管理
+            </a>
+            <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul> -->
+        </div>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                薪資管理管理
+            </a>
+            <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul> -->
+        </div>
+        <div class="dropdown">
+            <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                登入
+            </a>
+        </div>
+        <!-- <RouterLink to="/" class="Home Btn  shape-ex1" ><p>首頁</p></RouterLink> -->
+        <!-- <RouterLink to="/SignIn" class="Home Btn  shape-ex1"  ><p>簽到</p></RouterLink> -->
+        <!-- <RouterLink to="/Staff" class="Home Btn  shape-ex1" ><p>員工管理</p></RouterLink> -->
+        <!-- <RouterLink to="/Attendance" class="Home Btn  shape-ex1"  ><p>差勤管理</p></RouterLink>
         <RouterLink to="/Payroll" class="Home Btn  shape-ex1" ><p>薪資管理</p></RouterLink>
-        <RouterLink to="/LogIn" class="Home Btn  shape-ex1"  ><p>登入</p></RouterLink>
+        <RouterLink to="/LogIn" class="Home Btn  shape-ex1"  ><p>登入</p></RouterLink> -->
     </div>
     
 </template>
@@ -27,8 +74,8 @@ p{
 }
 
 .mainArea{
+    display: flex;
     height: auto;
-    width: 100vw;
     background-color: #092635;
 }
 
