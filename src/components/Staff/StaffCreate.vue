@@ -3,11 +3,23 @@
 export default{
     data(){
         return{
-            departments:[],
-            active:""
+            departments:[], //search
+            id :"",
+            department:"",
+            name:"",
+            pwd:"",
+            eamil:"",
+            active:"",
+            jobPostion:"",
+            birthDate:"",
+            arrivalDate:""
         }
     },
     methods:{
+        //create
+        createEmployee(){
+            
+        },
         //搜尋所有部門(select)
         SearchAllDepartmentData() {
             const url = 'http://localhost:8080/api/department/searchAll';
@@ -50,9 +62,9 @@ export default{
         <label for="">部門 :</label>
         <select name="" id="">
             <option value="" disabled selected>選擇部門</option>
-                    <option v-for="(dep, index) in departments" :key="index" >
-                        {{ dep.name }}
-                    </option>
+            <option v-for="(dep, index) in departments" :key="index" >
+                {{ dep.name }}
+            </option>
         </select>
         <br/>
         <label for="">姓名 :</label>
