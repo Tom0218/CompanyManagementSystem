@@ -10,7 +10,7 @@ h1{
 }
 .SignInBody{
     height: 100vh;
-  width: 100vw;
-  background-color: #092635;
+    width: 100vw;
+    background-color: #092635;
 }
 </style>
