@@ -18,7 +18,7 @@ export default{
         clear(){
             this.name = "";
             this.id = "";
-            this.selectedDepartment = this.departments;
+            this.selectedDepartment = "";
         },
 
         //search
@@ -48,8 +48,8 @@ export default{
                 return response.json();
             })
             .then(data => {
-                console.log('employeeList:', data);
                 this.employeeList = data.employeeList;
+                console.log('employeeList:', this.employeeList);
             })
             .catch(error => {
                 console.error('Fetch Error:', error);
@@ -80,7 +80,7 @@ export default{
             .then(data => {
                 // 將API回應的JSON數據設置到組件的responseData數據屬性中
                 this.departments = data.departments;
-                console.log(this.departments)
+                // console.log(this.departments)
             })
         }
     }
@@ -118,6 +118,7 @@ export default{
         <div id="contextArea">
             <table>
                 <tr>
+                    <th>編輯</th>
                     <th>員工編號</th>
                     <th>部門</th>
                     <th>職位</th>
@@ -132,13 +133,14 @@ export default{
                     <th>病假</th>
                 </tr>
                 <tr v-for="employee,index  in this.employeeList" :key="index">
+                    <td :key="index"><button>編輯</button></td>
                     <td :key="index">{{ employee.id }}</td>
-                    <td :key="index">{{ employee.jobPosition }}</td>
                     <td :key="index">{{ employee.department }}</td>
+                    <td :key="index">{{ employee.jobPosition }}</td>
                     <td :key="index">{{ employee.name }}</td>
                     <td :key="index">{{ employee.email }}</td>
-                    <td :key="index">{{ employee.birthDate }}</td>
-                    <td :key="index">{{ employee.arrivalDate }}</td>
+                    <td :key="index" class="date">{{ employee.birthDate }}</td>
+                    <td :key="index" class="date">{{ employee.arrivalDate }}</td>
                     <td :key="index">{{ employee.resignationDate }}</td>
                     <td :key="index">{{ employee.quitReason }}</td>
                     <td :key="index">{{ employee.active }}</td>
@@ -153,12 +155,16 @@ export default{
 
 #contextArea{
     width: 100%;
-    padding: 1%;
-
+    padding: 1% 0;
+    overflow: auto;
 }
 table{
-    width: auto;
+    width: 100vw;
     background-color: whitesmoke;
+    overflow: auto;
+}
+.date{
+    width: 7%;
 }
 tr{
     text-align: center;
@@ -206,7 +212,6 @@ label{
 .StaffSearchBody{
     padding: 1% 0 0 0;
     background-color: #092635;
-    overflow: auto;
-    width: auto;
+    width: 100vw;
 }
 </style>
