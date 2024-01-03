@@ -17,16 +17,14 @@ export default{
 </script>
 
 <template>
-        <!-- <StaffHeader/> -->
+        <StaffHeader/>
         <div class="context">
             <RouterView/>
         </div>
 </template>
 
 <style lang="scss" scoped>
-.context{
-    height: 100vh;
-}
+
 
 label{
     color: whitesmoke;

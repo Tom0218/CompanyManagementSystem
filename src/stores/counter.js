@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia' //匯入pinia預設管理工具
 
 export const useCounterStore = defineStore('counter', () => {
   const count = ref(0)

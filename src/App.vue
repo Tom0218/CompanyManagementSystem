@@ -1,11 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import Header from './components/Header.vue'
 </script>
 
 <template>
     <div class="header">
-        <Header/>
         <RouterView />
     </div>
     
@@ -13,6 +11,8 @@ import Header from './components/Header.vue'
 
 <style scoped>
 .header{
+    min-height: 100vh;
+    width: 100vw;
     background-color: #092635;
 }
 
