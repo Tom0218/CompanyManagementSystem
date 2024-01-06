@@ -50,9 +50,9 @@ const router = createRouter({
           component: () => import('../components/Staff/StaffUpdate.vue'),
           },
           {
-          path:'StaffDelete',
-          component: () => import('../components/Staff/StaffDelete.vue'),
-          },
+            path:'StaffChangePassword',
+            component: () => import('../components/Staff/StaffChangePassword.vue'),
+            },
       ]
     },
   ]

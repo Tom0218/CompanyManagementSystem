@@ -118,7 +118,6 @@ export default{
         <div id="contextArea">
             <table>
                 <tr>
-                    <th>編輯</th>
                     <th>員工編號</th>
                     <th>部門</th>
                     <th>職位</th>
@@ -133,7 +132,6 @@ export default{
                     <th>病假</th>
                 </tr>
                 <tr v-for="employee,index  in this.employeeList" :key="index">
-                    <td :key="index"><button>編輯</button></td>
                     <td :key="index">{{ employee.id }}</td>
                     <td :key="index">{{ employee.department }}</td>
                     <td :key="index">{{ employee.jobPosition }}</td>
