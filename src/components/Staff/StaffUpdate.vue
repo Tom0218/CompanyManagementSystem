@@ -44,13 +44,14 @@ export default{
             //判斷選擇啟用或停用
             if(action == "active"){
                 this.active = true;
-            }else{
+            }else if(action == "deactivate"){
                 this.active = false;
             }
             // 定义请求参数
             const executorId = this.userData.id;
             const employeeId = this.id;
             const isActive = this.active;
+            console.log(executorId+employeeId+isActive)
 
             // 构建 API 地址
             const apiUrl = `http://localhost:8080/api/attendance/employee/updateActive?executorId=${executorId}&employeeId=${employeeId}&isActive=${isActive}`;
@@ -72,6 +73,10 @@ export default{
                 // 处理返回的数据
                 console.log(data);
                 alert(data.rtnCode)
+                if(data.rtnCode == 'SUCCESSFUL'){
+                    this.search()
+                    return
+                }
             })
             .catch(error => {
                 // 处理请求错误
@@ -150,7 +155,8 @@ export default{
                     <td :key="index" class="date">{{ employee.arrivalDate }}</td>
                     <td :key="index">{{ employee.resignationDate }}</td>
                     <td :key="index">{{ employee.quitReason }}</td>
-                    <td :key="index">{{ employee.active }}</td>
+                    <td :key="index" v-if="employee.active == true">啟用</td>
+                    <td :key="index" v-if="employee.active == false">停用</td>
                     <td :key="index">{{ employee.annualLeave }}</td>
                     <td :key="index">{{ employee.sickLeave }}</td>
                 </tr>

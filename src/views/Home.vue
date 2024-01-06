@@ -192,10 +192,9 @@ export default{
     <input type="text" id="pwd" v-model="pwd">
     <br/>
     <button @click="login">登入</button>
-    <!-- <button @click="register">註冊</button> -->
 
     <!-- Button trigger modal -->
-    <button @click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal">忘記密碼(未完成)</button>
+    <button @click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal">忘記密碼</button>
 
   <!-- Modal -->
     <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
