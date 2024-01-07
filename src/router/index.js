@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import LogIn from '../views/LogIn.vue'
 import Home from '../views/Home.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,6 +8,10 @@ const router = createRouter({
       name: 'Home',
       component: Home
     },
+    {
+      path:'/PersonalInformation',
+      component: () => import('../views/PersonalInformation.vue'),
+      },
     {
       path: '/SignIn',
       name: 'SignIn',
@@ -46,13 +49,13 @@ const router = createRouter({
           component: () => import('../components/Staff/StaffCreate.vue'),
           },
           {
-          path:'StaffUpdate',
-          component: () => import('../components/Staff/StaffUpdate.vue'),
+          path:'StaffUpdateActive',
+          component: () => import('../components/Staff/StaffUpdateActive.vue'),
           },
           {
             path:'StaffChangePassword',
             component: () => import('../components/Staff/StaffChangePassword.vue'),
-            },
+          },
       ]
     },
   ]

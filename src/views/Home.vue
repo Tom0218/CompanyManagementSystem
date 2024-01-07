@@ -125,22 +125,26 @@ export default{
       });
     },
     logout() {
-            var url = "http://localhost:8080/api/attendance/logout";
-            var data = {};
-            fetch(url, {
-                method: "POST", // or 'PUT'
-                body: JSON.stringify(data), // data can be `string` or {object}!
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                }),
-            })
-                .then((res) => res.json())
-                .catch((error) => console.error("Error:", error))
-                .then((response) => {
-                    console.log("Logout return:", response,)
-                    return
-                });
+      var url = "http://localhost:8080/api/attendance/logout";
+      var data = {};
+      fetch(url, {
+          method: "POST", // or 'PUT'
+          credentials:'include',
+          body: JSON.stringify(data), // data can be `string` or {object}!
+          headers: new Headers({
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+                //api session不同要加
+              "Access-Control-Allow-Credentials":true  
+          }),
+      })
+          .then((res) => res.json())
+          .catch((error) => console.error("Error:", error))
+          .then((response) => {
+              console.log("Logout return:", response,)
+              localStorage.clear(); // 清除所有 localStorage 数据
+              return
+          });
     },
     login(){
       //判斷是否為空
@@ -149,10 +153,10 @@ export default{
 				return
 			}
       var url = "http://localhost:8080/api/attendance/login";
-            var data = {
-				"id":this.id,
-				"password":this.pwd
-			};
+        var data = {
+          "id":this.id,
+          "password":this.pwd
+        };
         fetch(url, {
         method: "POST", // or 'PUT'
         credentials:'include',
@@ -183,54 +187,57 @@ export default{
 }
 </script>
 <template>
-<div class="homeBody">
   <div class="body">
-    <label>帳號:</label>
-    <input type="text" id="account" v-model="id">
-    <br/>
-    <label>密碼:</label>
-    <input type="text" id="pwd" v-model="pwd">
-    <br/>
-    <button @click="login">登入</button>
+    <div>
+      <label>帳號:</label>
+      <input type="text" id="account" v-model="id">
+    </div>
+    <div>
+      <label>密碼:</label>
+      <input type="text" id="pwd" v-model="pwd">
+    </div>
+    <div>
 
-    <!-- Button trigger modal -->
-    <button @click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal">忘記密碼</button>
-
-  <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">忘記密碼</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="inputArea">
-              <div>
-                <label for="" class="lable">請輸入員工編號或電子信箱:</label>
-                <input type="text" v-model="userInput"  id="idAndEmailInputBox">
-                <button @click="SendVerificationCode()">送出驗證碼</button>
-              </div>
-              <br/>
-              <label class="lable">員工編號 :</label>
-              <input type="text" v-model="employeeNum">
-              <br/>
-              <label class="lable">驗證碼 :</label>
-              <input type="text" v-model="authCode">
-              <br/>
-              <label class="lable">新密碼 :</label>
-              <input type="text" v-model="newPwd">
+      <button @click="login">登入</button>
+  
+      <!-- Button trigger modal -->
+      <button @click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal">忘記密碼</button>
+  
+    <!-- Modal -->
+      <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">忘記密碼</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-            <button type="button" class="btn btn-primary" @click="changePwd">完成</button>
+            <div class="modal-body">
+              <div class="inputArea">
+                <div>
+                  <label for="" class="lable">請輸入員工編號或電子信箱:</label>
+                  <input type="text" v-model="userInput"  id="idAndEmailInputBox">
+                  <button @click="SendVerificationCode()">送出驗證碼</button>
+                </div>
+                <br/>
+                <label class="lable">員工編號 :</label>
+                <input type="text" v-model="employeeNum">
+                <br/>
+                <label class="lable">驗證碼 :</label>
+                <input type="text" v-model="authCode">
+                <br/>
+                <label class="lable">新密碼 :</label>
+                <input type="text" v-model="newPwd">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+              <button type="button" class="btn btn-primary" @click="changePwd">完成</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>  
 </template>
 
 <style lang="scss" scoped>
@@ -273,5 +280,10 @@ label{
   height: auto;
   width: 100vw;
   background-color: #092635;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 </style>

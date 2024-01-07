@@ -11,8 +11,17 @@ export const userInfoStore  = defineStore('userInfo',  {
     actions:{
         setUser(user){
             this.user = user;
+            localStorage.setItem('user', JSON.stringify(user)); //存在localStorage防止重整頁面資料被刷掉
         },
-        getUser(){    
+        clearUser() {
+            this.user = null;
+            localStorage.removeItem('user');
+        },
+        getUser() {
+            const data = localStorage.getItem('user')
+            this.user = JSON.parse(data);
+            
+
             return this.user;
         },
     }
