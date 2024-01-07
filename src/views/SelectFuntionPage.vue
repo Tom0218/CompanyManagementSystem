@@ -72,7 +72,7 @@ export default{
             <label for="">Job position : {{ this.userData.jobPosition }}</label>
         </div>
         <div class="fnArea">
-            <div class="fnbox"><RouterLink to="/PersonalInformation" class="Btn"><p>個人檔案(未完成)</p></RouterLink> </div>
+            <div class="fnbox"><RouterLink to="/PersonalInformation" class="Btn"><p>個人檔案</p></RouterLink> </div>
             <div class="fnbox"><RouterLink to="/SignIn" class="Btn"><p>簽到(未完成)</p></RouterLink> </div>
             <div class="fnbox"><RouterLink to="/Staff" class="Btn"><p>員工管理(未完成)</p></RouterLink></div>
             <div class="fnbox"><RouterLink to="/Attendance" class="Btn "><p>差勤管理(未完成)</p></RouterLink></div>
