@@ -18,6 +18,7 @@ export default{
     //參數:  資料庫,要用的 state & getters
     ...mapState(userInfo ,["user"]),
     },
+    
     methods:{
         ...mapActions(userInfo ,["setUser",'getUser']),
         async fetchUser() {
@@ -25,11 +26,17 @@ export default{
         this.userData = this.getUser();
         // console.log('Fetched userData:', this.userData);
         },
+
+        cancel(){
+            this.$router.push('/SelectFuntionPage');
+        },
+
         changePwd(){
             if(this.makeSurePwd != this.newPwd){
                 alert("密碼不一致!!")
                 return
             }
+
             const requestData = {
                 id: this.userData.id,
                 old_password:this.oldPwd,
@@ -84,7 +91,7 @@ export default{
             <br/>
         </div>
         <button @click="changePwd()">確認</button>
-        <button>取消</button>
+        <button @click="cancel">取消</button>
     </div>
 </template>
 <style lang="scss" scoped>

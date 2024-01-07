@@ -1,7 +1,7 @@
 <script>
 import {mapState, mapActions} from 'pinia';
-import { RouterLink,RouterView } from 'vue-router';
 import userInfo  from'../../stores/userInfo';
+import { RouterLink,RouterView } from 'vue-router';
 
 export default{
     data(){
@@ -22,7 +22,6 @@ export default{
 
     components:{
         RouterLink,
-        RouterView,
     },
 
     methods:{
@@ -30,25 +29,19 @@ export default{
         async fetchUser() {
             // 触发从后端获取用户数据的操作
             this.userData = this.getUser();
-            console.log('Fetched userData:', this.userData);    
+            console.log('Fetched userData(leave):', this.userData);    
         },
 
     }
 }
-</script>
 
+</script>
 <template>
     <nav>
-        <div class="fnbox" v-if="this.userData.jobPosition != 'General'"><RouterLink to="/Staff/StaffSearch" >員工查詢</RouterLink></div>
-        <div class="fnbox" v-if="this.userData.department == 'HR' || this.userData.department == 'Admin'"><RouterLink to="/Staff/StaffCreate" >員工新增</RouterLink></div>
-        <div class="fnbox" v-if="this.userData.department == 'HR' || this.userData.department == 'Admin'"><RouterLink to="/Staff/StaffUpdateActive" >帳號啟用/停用</RouterLink></div>
-        <div class="fnbox"><RouterLink to="/Staff/StaffChangePassword" >變更密碼</RouterLink></div>
-        <div class="fnbox"><RouterLink to="/SelectFuntionPage" >返回</RouterLink></div>    
+        <RouterLink to="/Attendance/Leave" class="fnbox">請假</RouterLink>
     </nav>
 </template>
-
-<style lang="scss" scoped> 
-
+<style lang="scss" scoped>
 .fnbox{
     height: 100%;
     background-color: #5C8374;
@@ -57,10 +50,11 @@ export default{
 }
 
 a{
+    height: 10vh;
     color: whitesmoke;
-    margin:  0 10px;
     text-decoration: none;
 }
+
 nav{
     height: auto;
     width: 100vw;

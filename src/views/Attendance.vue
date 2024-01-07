@@ -1,7 +1,20 @@
-<script></script>
+<script>
+import { RouterLink,RouterView } from 'vue-router';
+import Header from '../components/Attendance/AttendanceHeader.vue'
+
+export default{
+    components:{
+        Header,
+        RouterLink,
+        RouterView
+    }
+}
+
+</script>
 <template>
     <div class="AttendanceBody">
-        <h1>差勤管理</h1>
+        <Header/>
+        <RouterView/>
     </div>
 </template>
 <style lang="scss" scoped>

@@ -32,10 +32,14 @@ export default{
         async fetchUser() {
         // 触发从后端获取用户数据的操作
         this.userData = this.getUser();
-        console.log('Fetched userData:', this.userData);
+        // console.log('Fetched userData:', this.userData);
         },
 
         updateActive(action){
+            if(this.userData.jobPosition == 'Getneral'){
+                alert('Unauthorizated')
+                return
+            }
             //判斷選擇啟用或停用
             if(action == "active"){
                 this.active = true;
@@ -78,6 +82,10 @@ export default{
             });
         },
         search(){
+            if(this.userData.jobPosition == 'Getneral'){
+                alert('Unauthorizated')
+                return
+            }
             const id = this.id;
             const name = this.name;
             const department = this.selectedDepartment;

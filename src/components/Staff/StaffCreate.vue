@@ -30,12 +30,16 @@ export default{
         async fetchUser() {
         // 触发从后端获取用户数据的操作
         this.userData = this.getUser();
-        console.log('Fetched userData:', this.userData);
+        // console.log('Fetched userData:', this.userData);
         // 在这里你可以使用从后端获取的用户数据进行其他操作
         },
 
         //create
         addNewEmployees(){
+            if(this.userData.jobPosition == 'Getneral'){
+                alert('Unauthorizated')
+                return
+            }
             console.log("id"+this.userData.id)
             const requestData = {
                 creatorId:this.userData.id,

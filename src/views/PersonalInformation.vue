@@ -29,7 +29,7 @@ export default{
         async fetchUser() {
         // 触发从后端获取用户数据的操作
         this.employee = this.getUser();
-        console.log('Fetched userData:', this.employee);
+        // console.log('Fetched userData:', this.employee);
         },
     }
 }
@@ -91,9 +91,8 @@ export default{
 <style lang="scss" scoped>
 .fnbox{
     width: 5vw;
-    height: auto;
+    height: 5vh;
     background-color: #5C8374;
-    margin: 0 5px ;
     color: whitesmoke;
     text-decoration: none;
 }

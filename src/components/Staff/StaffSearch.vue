@@ -1,7 +1,10 @@
 <script>
+import {mapState, mapActions} from 'pinia';
+import userInfo  from'../../stores/userInfo';
 export default{
     data(){
         return{
+            userData:[],
             id:"",
             name:"",
             departments:"",
@@ -11,9 +14,25 @@ export default{
     },
     mounted(){
         this.SearchAllDepartmentData();
-        this.search();
+        this.fetchUser();
     },
+
+    computed:{
+    // 使用 mapState 将 state 映射到组件的计算属性
+    //參數:  資料庫,要用的 state & getters
+    ...mapState(userInfo ,["user"]),
+    },
+
     methods:{
+         //Pinia
+        ...mapActions(userInfo ,["setUser",'getUser']),
+        async fetchUser() {
+        // 触发从后端获取用户数据的操作
+        this.userData = this.getUser();
+        // console.log('Fetched userData:', this.userData);
+        // 在这里你可以使用从后端获取的用户数据进行其他操作
+        },
+
         //清空搜尋條件
         clear(){
             this.name = "";
@@ -23,6 +42,12 @@ export default{
 
         //search
         search(){
+            if(this.userData.jobPosition == 'Getneral'){
+                alert('Unauthorizated')
+                this.id = this.userData.id
+                this.name = this.userData.name;
+                this.selectedDepartment = this.userData.department
+            }
             const id = this.id;
             const name = this.name;
             const department = this.selectedDepartment;
@@ -48,8 +73,9 @@ export default{
                 return response.json();
             })
             .then(data => {
+                console.log(data)
                 this.employeeList = data.employeeList;
-                console.log('employeeList:', this.employeeList);
+                // console.log('employeeList:', this.employeeList);
             })
             .catch(error => {
                 console.error('Fetch Error:', error);
