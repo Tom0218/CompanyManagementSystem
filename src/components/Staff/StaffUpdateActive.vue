@@ -5,7 +5,6 @@ import userInfo  from'../../stores/userInfo';
 export default{
     data(){
         return{
-            page:"",
             userData:[],
             employee:"",
             id :"",
@@ -21,7 +20,7 @@ export default{
         }
     },
     mounted(){
-        this.fetchUser()
+        this.fetchUser();
     },
     computed:{
     // 使用 mapState 将 state 映射到组件的计算属性
@@ -34,12 +33,8 @@ export default{
         // 触发从后端获取用户数据的操作
         this.userData = this.getUser();
         console.log('Fetched userData:', this.userData);
-
-
         },
-        goUpdateActive(){
-            this.page = "updateActive"
-        },
+
         updateActive(action){
             //判斷選擇啟用或停用
             if(action == "active"){
@@ -51,7 +46,6 @@ export default{
             const executorId = this.userData.id;
             const employeeId = this.id;
             const isActive = this.active;
-            console.log(executorId+employeeId+isActive)
 
             // 构建 API 地址
             const apiUrl = `http://localhost:8080/api/attendance/employee/updateActive?executorId=${executorId}&employeeId=${employeeId}&isActive=${isActive}`;
@@ -84,7 +78,6 @@ export default{
             });
         },
         search(){
-            console.log(this.id)
             const id = this.id;
             const name = this.name;
             const department = this.selectedDepartment;
@@ -110,86 +103,112 @@ export default{
                 return response.json();
             })
             .then(data => {
-                console.log(data);
-                this.employee = data.employeeList;
+                this.employee = data.employeeList[0];
+                console.log(this.employee);
             })
             .catch(error => {
                 console.error('Fetch Error:', error);
             });
         },
-
-    }
+    },
 }
 </script>
 <template>
     <div class="StaffUpdateBody" >
-        <button @click="goUpdateActive">帳號啟用/帳號停用</button>
-        <div v-if="this.page == 'updateActive'">
-            <label for="">員工編號 : </label>
+        <div >
+            <label for="" id="employeeNum">員工編號 : </label>
             <input type="text" v-model="id">
             <button @click="search">搜尋</button>
             <button @click="updateActive('active')">啟用</button>
             <button @click="updateActive('deactivate')">停用</button>
+            <br/>
             <table>
                 <tr>
-                    <th>員工編號</th>
-                    <th>部門</th>
-                    <th>職位</th>
-                    <th>姓名</th>
-                    <th>信箱</th>
-                    <th>生日</th>
-                    <th>到職日期</th>
-                    <th>離職日期</th>
-                    <th>離職原因</th>
-                    <th>帳號狀態</th>
-                    <th>特休</th>
-                    <th>病假</th>
+                    <th>員工編號 :</th>
+                    <td>{{ this.employee.id }}</td>
                 </tr>
-                <tr v-for="employee,index  in this.employee" :key="index">
-                    <td :key="index">{{ employee.id }}</td>
-                    <td :key="index">{{ employee.department }}</td>
-                    <td :key="index">{{ employee.jobPosition }}</td>
-                    <td :key="index">{{ employee.name }}</td>
-                    <td :key="index">{{ employee.email }}</td>
-                    <td :key="index" class="date">{{ employee.birthDate }}</td>
-                    <td :key="index" class="date">{{ employee.arrivalDate }}</td>
-                    <td :key="index">{{ employee.resignationDate }}</td>
-                    <td :key="index">{{ employee.quitReason }}</td>
-                    <td :key="index" v-if="employee.active == true">啟用</td>
-                    <td :key="index" v-if="employee.active == false">停用</td>
-                    <td :key="index">{{ employee.annualLeave }}</td>
-                    <td :key="index">{{ employee.sickLeave }}</td>
+                <tr>
+                    <th>部門 :</th>
+                    <td>{{ this.employee.department }}</td>
+                </tr>
+                <tr>
+                    <th>職位 :</th>
+                    <td>{{ this.employee.jobPosition }}</td>
+                </tr>
+                <tr>
+                    <th>姓名 :</th>
+                    <td>{{ this.employee.name }}</td>
+                </tr>
+                <tr>
+                    <th>信箱 :</th>
+                    <td>{{ this.employee.email }}</td>
+                </tr>
+                <tr>
+                    <th>生日 :</th>
+                    <td>{{ this.employee.birthDate }}</td>
+                </tr>
+                <tr>
+                    <th>到職日期 :</th>
+                    <td>{{ this.employee.arrivalDate }}</td>
+                </tr>
+                <tr>
+                    <th>離職日期 :</th>
+                    <td>{{ this.employee.requestData }}</td>
+                </tr>
+                <tr>
+                    <th>離職原因 :</th>
+                    <td>{{ this.employee.quitReason }}</td>
+                </tr>
+                <tr>
+                    <th>帳號狀態 :</th>
+                    <td>{{ this.employee.active }}</td>
+                </tr>
+                <tr>
+                    <th>特休 :</th>
+                    <td>{{ this.employee.annualLeave }}</td>
+                </tr>
+                <tr>
+                    <th>病假 :</th>
+                    <td>{{ this.employee.sickLeave }}</td>
                 </tr>
             </table>
         </div>
+        <div class="img">
+            <img src="" alt="顯示失敗" width="100px" height="200px">
+        </div>
+        
     </div>
     
 </template>
 <style lang="scss" scoped>
-tr{
-    text-align: center;
+#employeeNum{
+    color: whitesmoke;
+}
+.img{
+    width: 5%;
+    height: 5%;
+}
+
+table{
+    margin-top: 2%;
+    width: 40%;
+    background-color: whitesmoke;
 }
 td{
-    width: 5%;
+    color: black;
+    width: 50%;
     border: 1px black solid;
     text-align: left;
     font-weight: bold;
     padding: 0 1%;
-    // margin: 0;
 }
 th{
-    width: 5%;
+    color: black;
+    width: 20%;
     border: 1px black solid;
     font-weight: bold;
 }
-table{
-    width: 100vw;
-    background-color: whitesmoke;
-    overflow: auto;
-}
-label{
-    color: whitesmoke;
-}
+
 h1{
     color: whitesmoke;
 }

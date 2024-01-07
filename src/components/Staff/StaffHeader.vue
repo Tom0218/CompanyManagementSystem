@@ -12,8 +12,8 @@ export default{
     <nav>
         <div class="fnbox"><RouterLink to="/Staff/StaffSearch" >員工查詢</RouterLink></div>
         <div class="fnbox"><RouterLink to="/Staff/StaffCreate" >員工新增</RouterLink></div>
-        <div class="fnbox"><RouterLink to="/Staff/StaffUpdate" >員工修改</RouterLink></div>
-        <div class="fnbox"> <RouterLink to="/Staff/StaffChangePassword" >變更密碼</RouterLink></div>
+        <div class="fnbox"><RouterLink to="/Staff/StaffUpdateActive" >帳號啟用/停用</RouterLink></div>
+        <div class="fnbox"><RouterLink to="/Staff/StaffChangePassword" >變更密碼</RouterLink></div>
         <div class="fnbox"><RouterLink to="/SelectFuntionPage" >返回</RouterLink></div>    
     </nav>
 </template>
