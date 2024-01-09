@@ -22,10 +22,12 @@ const router = createRouter({
       path: '/Attendance',
       name: 'Attendance',
       component: () => import('../views/Attendance.vue'),
-      children:[{
+      children:[
+        {
         path:'AttendanceLeave',
         component: () => import('../components/Attendance/AttendanceLeave.vue'),
-      }]
+      }
+    ]
     },
 
     {
