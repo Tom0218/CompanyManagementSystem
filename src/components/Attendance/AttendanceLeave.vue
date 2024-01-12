@@ -1,14 +1,13 @@
 <script>
 import {mapState, mapActions} from 'pinia';
 import userInfo  from'../../stores/userInfo';
+
 export default{
     data(){
         return{
             //pinia 
             userData:[],
 
-            employeeId:"",
-            employeeDepartment:"",
             leaveType:"",
             leaveStartDateTime:"",
             leaveEndDateTime:"",
@@ -19,7 +18,6 @@ export default{
             updateDateTime:"",
             certification:"",
             //searchsupervisor
-            reviewerId:"",
             supervisorList : [],
 
         }
@@ -35,6 +33,7 @@ export default{
     //參數:  資料庫,要用的 state & getters
     ...mapState(userInfo ,["user"]),
     },
+
     watch: {
         leaveStartDateTime: function (newVal, oldVal) {
             this.calculateWorkHours();
@@ -51,18 +50,30 @@ export default{
         this.userData = this.getUser();
         },
 
+        //取消
+        cancel(){
+            this.$router.push('/Attendance')
+        },
+
         //送出假單
         sendLeaveApply(){
+            var appliedDateTime = new Date();
+
             const requestData = {
-                employee_id: this.employeeId,
-                employee_department: this.employeeDepartment,
-                leave_type: this.leaveType,
-                leave_start_datetime: this.leaveStartDateTime,
-                leave_end_datetime: this.leaveEndDateTime,
-                total_hour: this.totalHours,
-                reviewer_id: this.reviewerId,
-                certification:this.certification
+                employeeId: this.userData.id,
+                employeeDepartment: this.userData.department,
+                leaveType: this.leaveType,
+                leaveStartDatetime: this.leaveStartDateTime,
+                leaveEndDatetime: this.leaveEndDateTime,
+                leaveReason : this.leaveReason,
+                totalHour: this.totalHours,
+                reviewerId: this.reviewerId,
+                certification:this.certification,
+                appliedDatetime: appliedDateTime,
             }
+            console.log(this.leaveStartDateTime)
+            console.log(this.leaveEndDateTime)
+            console.log(appliedDateTime)
              // 发送POST请求
             fetch('http://localhost:8080/api/attendance/leaveApplication/apply', {
                 method: 'POST',
@@ -77,7 +88,16 @@ export default{
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                alert(data.rtnCode)
+                if(data.rtnCode == "SUCCESSFUL"){
+                    this.leaveType = "";
+                    this.leaveStartDatetime = ""; 
+                    this.leaveEndDatetime =  "";
+                    this.leaveReason  =  "";
+                    this.totalHour  =  0;
+                    this.reviewerId =  "";
+                    this.certification =  "";
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -141,8 +161,7 @@ export default{
             const totalHoursInHalfHourUnits = Math.ceil(adjustedHours * 2) / 2;
 
             // 更新 totalHours 數據
-            this.totalHours = "總時數: " + totalHoursInHalfHourUnits.toFixed(2) + " 小時";
-            console.log(this.totalHours);
+            this.totalHours =  parseInt(totalHoursInHalfHourUnits.toFixed(2));
         },
     }
 }
@@ -155,39 +174,41 @@ export default{
             <label for="">假別 :</label>
             <select name="" id="" v-model="leaveType">
                 <option value="">選擇假別</option>
-                <option value="officialLeave">公假</option>
-                <option value="personalLeave">事假</option>
-                <option value="sickLeave">病假</option>
-                <option value="annualLeave">年假</option>
-                <option value="funeralLeave">喪假</option>
-                <option value="maternityLeave">產假</option>
-                <option value="menstruationLeave">生理假</option>
-                <option value="Pre-MaternityLeave">陪產假</option>
-                <option value="maritalLeave">婚假</option>
-                <option value="特休">特休</option>
+                <option value="OFFICIAL">公假</option>
+                <option value="PERSONAL">事假</option>
+                <option value="SICK">病假</option>
+                <option value="ANNUAL">特休</option>
+                <option value="FUNERAL">喪假</option>
+                <option value="MATERNITY">產假</option>
+                <option value="MENSTRUATION">生理假</option>
+                <option value="PRE_MATERNITY">陪產假</option>
+                <option value="MARITAL">婚假</option>
             </select>
         </div>
         <div>
             <label for="">請假原因:</label>
-            <input type="text" name="" id="" required >
+            <input type="text" name="" id="" required  v-model="leaveReason">
         </div>
         <div>
             <label for="">開始時間:</label>
-            <input type="datetime-local" id="startTime" required v-model="this.leaveStartDateTime">
+            <input type="datetime-local" id="startTime" required v-model="leaveStartDateTime">
         </div>
         <div>
             <label for="">結束時間:</label>
-            <input type="datetime-local"  id="endTime" required  v-model="this.leaveEndDateTime">
+            <input type="datetime-local"  id="endTime" required  v-model="leaveEndDateTime">
         <!-- </div>
         <label for="" id="totalHours">總時數:{{ this.totalHours }}</label>
         <div> -->
+        </div>
+        <div>
             <label for="">審核主管:</label>
-            <select name="" id="" v-model="this.reviewerId">
+            <select name="" id="" v-model="reviewerId">
                 <option value="">選擇主管</option>
-                <option v-for="(reviewer, index) in this.supervisorList" :key="index" value = reviewer.name>
-                {{ reviewer.name }}
-            </option>
+                <option v-for="(reviewer, index) in supervisorList" :key="index" :value="reviewer.id">
+                    {{ reviewer.name }}
+                </option>
             </select>
+
         </div>
         <div>
             <label for="">佐證文件:</label>

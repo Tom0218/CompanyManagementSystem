@@ -40,8 +40,8 @@ export default{
 <template>
     <nav>
         <div class="fnbox" v-if="this.userData.jobPosition != 'General'"><RouterLink to="/Staff/StaffSearch" >員工查詢</RouterLink></div>
-        <div class="fnbox" v-if="this.userData.department == 'HR' || this.userData.department == 'Admin'"><RouterLink to="/Staff/StaffCreate" >員工新增</RouterLink></div>
-        <div class="fnbox" v-if="this.userData.department == 'HR' || this.userData.department == 'Admin'"><RouterLink to="/Staff/StaffUpdateActive" >帳號啟用/停用</RouterLink></div>
+        <div class="fnbox" v-if="this.userData.department == 'HR' || this.userData.department == 'admin'"><RouterLink to="/Staff/StaffCreate" >員工新增</RouterLink></div>
+        <div class="fnbox" v-if="this.userData.department == 'HR' || this.userData.department == 'admin'"><RouterLink to="/Staff/StaffUpdateActive" >帳號啟用/停用</RouterLink></div>
         <div class="fnbox"><RouterLink to="/Staff/StaffChangePassword" >變更密碼</RouterLink></div>
         <div class="fnbox"><RouterLink to="/SelectFuntionPage" >返回</RouterLink></div>    
     </nav>
