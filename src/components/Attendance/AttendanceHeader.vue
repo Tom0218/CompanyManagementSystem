@@ -38,8 +38,9 @@ export default{
 </script>
 <template>
     <nav>
-        <RouterLink to="/Attendance/AttendanceLeave" class="fnbox">假單申請(未完成)</RouterLink>
-        <RouterLink to="/Attendance/AttendanceLeave" class="fnbox">假單審核(未完成)</RouterLink>
+        <RouterLink to="/Attendance/AttendanceLeave" class="fnbox">假單申請</RouterLink>
+        <RouterLink to="/Attendance/LeaveApplicationReview" class="fnbox">假單審核(未完成)</RouterLink>
+        <RouterLink to="/SelectFuntionPage" class="fnbox">返回</RouterLink>
     </nav>
 </template>
 <style lang="scss" scoped>

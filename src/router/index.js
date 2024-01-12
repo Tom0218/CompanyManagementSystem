@@ -26,7 +26,11 @@ const router = createRouter({
         {
         path:'AttendanceLeave',
         component: () => import('../components/Attendance/AttendanceLeave.vue'),
-      }
+        },
+        {
+        path:'LeaveApplicationReview',
+        component: () => import('../components/Attendance/LeaveApplicationReview.vue'),
+        },
     ]
     },
 
