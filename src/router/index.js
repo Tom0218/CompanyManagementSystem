@@ -22,6 +22,17 @@ const router = createRouter({
       path: '/Attendance',
       name: 'Attendance',
       component: () => import('../views/Attendance.vue')
+  
+    },
+    {
+      path: '/AttendanceLeave',
+      name: 'AttendanceLeave',
+      component: () => import('../components/Attendance/AttendanceLeave.vue')
+    },
+    {
+      path: '/LeaveApplicationReview',
+      name: 'LeaveApplicationReview',
+      component: () => import('../components/Attendance/LeaveApplicationReview.vue')
     },
 
     {
@@ -38,25 +49,27 @@ const router = createRouter({
     {
       path: '/Staff',
       name: 'Staff',
-      component: () => import('../views/Staff.vue'),
-        children:[
-          {
-          path:'StaffSearch',
-          component: () => import('../components/Staff/StaffSearch.vue'),
-          },
-          {
-          path:'StaffCreate',
-          component: () => import('../components/Staff/StaffCreate.vue'),
-          },
-          {
-          path:'StaffUpdateActive',
-          component: () => import('../components/Staff/StaffUpdateActive.vue'),
-          },
-          {
-            path:'StaffChangePassword',
-            component: () => import('../components/Staff/StaffChangePassword.vue'),
-          },
-      ]
+      component: () => import('../views/Staff.vue')
+    },
+    {
+      path: '/StaffSearch',
+      name: 'StaffSearch',
+      component: () => import('../components/Staff/StaffSearch.vue')
+    },
+    {
+      path: '/StaffCreate',
+      name: 'StaffCreate',
+      component: () => import('../components/Staff/StaffCreate.vue')
+    },
+    {
+      path: '/StaffUpdateActive',
+      name: 'StaffUpdateActive',
+      component: () => import('../components/Staff/StaffUpdateActive.vue')
+    },
+    {
+      path: '/StaffChangePassword',
+      name: 'StaffChangePassword',
+      component: () => import('../components/Staff/StaffChangePassword.vue')
     },
   ]
 })

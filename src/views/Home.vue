@@ -55,6 +55,7 @@ export default{
       });
 
     },
+    
     //傳送驗證碼(id/email)
     SendVerificationCode(){
       //判斷是email還是員工編號
@@ -91,6 +92,7 @@ export default{
         console.error('Error:', error);
       });
     },
+    
     search(){
       const id = this.id;
       const name = this.name;
@@ -124,6 +126,7 @@ export default{
           console.error('Fetch Error:', error);
       });
     },
+
     logout() {
       var url = "http://localhost:8080/api/attendance/logout";
       var data = {};
@@ -146,6 +149,7 @@ export default{
               return
           });
     },
+
     login(){
       //判斷是否為空
 			if(this.id==""||this.pwd==""){
@@ -186,58 +190,57 @@ export default{
 
 }
 </script>
-<template>
-  <div class="body">
-    <div>
-      <label>帳號:</label>
-      <input type="text" id="account" v-model="id">
-    </div>
-    <div>
-      <label>密碼:</label>
-      <input type="text" id="pwd" v-model="pwd">
-    </div>
-    <div>
 
-      <button @click="login">登入</button>
-  
-      <!-- Button trigger modal -->
-      <button @click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal">忘記密碼</button>
-  
-    <!-- Modal -->
-      <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">忘記密碼</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="inputArea">
-                <div>
-                  <label for="" class="lable">請輸入員工編號或電子信箱:</label>
-                  <input type="text" v-model="userInput"  id="idAndEmailInputBox">
-                  <button @click="SendVerificationCode()">送出驗證碼</button>
-                </div>
-                <br/>
-                <label class="lable">員工編號 :</label>
-                <input type="text" v-model="employeeNum">
-                <br/>
-                <label class="lable">驗證碼 :</label>
-                <input type="text" v-model="authCode">
-                <br/>
-                <label class="lable">新密碼 :</label>
-                <input type="text" v-model="newPwd">
+<template>
+    <div class="maimArea">
+      <h1>xx有限公司差勤管理系統</h1>
+      <div>
+        <label>帳號:</label>
+        <input type="text"  v-model="id">
+      </div>
+      <div>
+        <label>密碼:</label>
+        <input type="password"  v-model="pwd">
+      </div>
+      <div>
+        <button @click="login">登入</button>
+        <!-- Button trigger modal -->
+        <button @click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal">忘記密碼</button>
+        <!-- Modal -->
+        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">忘記密碼</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-              <button type="button" class="btn btn-primary" @click="changePwd">完成</button>
+              <div class="modal-body">
+                <div class="inputArea">
+                  <div>
+                    <label for="" class="lable">請輸入員工編號或電子信箱:</label>
+                    <input type="text" v-model="userInput"  id="idAndEmailInputBox">
+                    <button @click="SendVerificationCode()">送出驗證碼</button>
+                  </div>
+                  <br/>
+                  <label class="lable">員工編號 :</label>
+                  <input type="text" v-model="employeeNum">
+                  <br/>
+                  <label class="lable">驗證碼 :</label>
+                  <input type="text" v-model="authCode">
+                  <br/>
+                  <label class="lable">新密碼 :</label>
+                  <input type="text" v-model="newPwd">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary" @click="changePwd">完成</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -268,6 +271,11 @@ label{
   color: whitesmoke;
   font-weight: bold;
 }
+
+h1{
+  color: whitesmoke;
+}
+
 //input
 #account,#pwd{
   margin-left: 5px;
@@ -275,11 +283,11 @@ label{
 //文字
 
 //架構
-.body{
+.maimArea{
   min-height: 100vh;
   height: auto;
-  width: 100vw;
-  background-color: #092635;
+  width: 70vw;
+  background-color: rgb(54, 82, 173);
   display: flex;
   flex-direction: column;
   justify-content: center;

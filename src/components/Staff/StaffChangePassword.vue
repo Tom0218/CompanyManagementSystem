@@ -18,6 +18,7 @@ export default{
     //參數:  資料庫,要用的 state & getters
     ...mapState(userInfo ,["user"]),
     },
+    
     methods:{
         ...mapActions(userInfo ,["setUser",'getUser']),
         async fetchUser() {
@@ -25,11 +26,17 @@ export default{
         this.userData = this.getUser();
         // console.log('Fetched userData:', this.userData);
         },
+
+        cancel(){
+            this.$router.push('/Staff');
+        },
+
         changePwd(){
             if(this.makeSurePwd != this.newPwd){
                 alert("密碼不一致!!")
                 return
             }
+
             const requestData = {
                 id: this.userData.id,
                 old_password:this.oldPwd,
@@ -72,7 +79,7 @@ export default{
     <div class="changePwdBody">
         <div class="inputArea">
             <label>員工編號: {{ this.userData.id  }}</label>
-            <br/>
+        
             <label>舊密碼:</label>
             <input type="text" v-model="this.oldPwd">
             <br/>
@@ -82,9 +89,9 @@ export default{
             <label>確認密碼:</label>
             <input type="text" v-model="this.makeSurePwd">
             <br/>
+            <button @click="changePwd()">確認</button>
+            <button @click="cancel">取消</button>
         </div>
-        <button @click="changePwd()">確認</button>
-        <button>取消</button>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -97,7 +104,11 @@ label{
     color: whitesmoke;
 }
 .changePwdBody{
+    height: 100vh;
     width: 100vw;
-    background-color: #092635;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 </style>

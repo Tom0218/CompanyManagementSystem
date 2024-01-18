@@ -32,10 +32,18 @@ export default{
         async fetchUser() {
         // 触发从后端获取用户数据的操作
         this.userData = this.getUser();
-        console.log('Fetched userData:', this.userData);
+        // console.log('Fetched userData:', this.userData);
+        },
+
+        goBack(){
+            this.$router.push('Staff')
         },
 
         updateActive(action){
+            if(this.userData.jobPosition == 'Getneral'){
+                alert('Unauthorizated')
+                return
+            }
             //判斷選擇啟用或停用
             if(action == "active"){
                 this.active = true;
@@ -77,7 +85,12 @@ export default{
                 console.error('Fetch error:', error);
             });
         },
+
         search(){
+            if(this.userData.jobPosition == 'Getneral'){
+                alert('Unauthorizated')
+                return
+            }
             const id = this.id;
             const name = this.name;
             const department = this.selectedDepartment;
@@ -120,7 +133,8 @@ export default{
             <input type="text" v-model="id">
             <button @click="search">搜尋</button>
             <button @click="updateActive('active')">啟用</button>
-            <button @click="updateActive('deactivate')">停用</button>
+            <button @click="updateActive('deactivate')">停用 </button>
+            <button @click="goBack()">返回 </button>
             <br/>
             <table>
                 <tr>
@@ -173,9 +187,9 @@ export default{
                 </tr>
             </table>
         </div>
-        <div class="img">
+        <!-- <div class="img">
             <img src="" alt="顯示失敗" width="100px" height="200px">
-        </div>
+        </div> -->
         
     </div>
     
@@ -191,7 +205,7 @@ export default{
 
 table{
     margin-top: 2%;
-    width: 40%;
+    width: 100%;
     background-color: whitesmoke;
 }
 td{
@@ -214,6 +228,8 @@ h1{
 }
 .StaffUpdateBody{
     width: 100vw;
-    background-color: #092635;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 </style>

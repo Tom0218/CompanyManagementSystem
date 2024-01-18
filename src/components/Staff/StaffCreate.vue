@@ -30,12 +30,20 @@ export default{
         async fetchUser() {
         // 触发从后端获取用户数据的操作
         this.userData = this.getUser();
-        console.log('Fetched userData:', this.userData);
+        // console.log('Fetched userData:', this.userData);
         // 在这里你可以使用从后端获取的用户数据进行其他操作
+        },
+
+        goBack(){
+            this.$router.push('Staff')
         },
 
         //create
         addNewEmployees(){
+            if(this.userData.jobPosition == 'Getneral'){
+                alert('Unauthorizated')
+                return
+            }
             console.log("id"+this.userData.id)
             const requestData = {
                 creatorId:this.userData.id,
@@ -120,43 +128,45 @@ export default{
 </script>
 <template>
     <div class="StaffCreateBody">
-        <label for="">編號 :</label>
-        <input type="text" v-model="this.id">
-        <br/>
-        <label for="">部門 :</label>
-        <select name="" id="" v-model="this.department">
-            <option value="" disabled selected>選擇部門</option>
-            <option v-for="(dep, index) in departments" :key="index" >
-                {{ dep.name }}
-            </option>
-        </select>
-        <br/>
-        <label for="" >姓名 :</label>
-        <input type="text" v-model="this.name">
-        <br/>
-        <label for="">密碼 :</label>
-        <input type="text" v-model="this.pwd">
-        <br/>
-        <label for="">信箱 :</label>
-        <input type="text" v-model="this.email">
-        <br/>
-        <label for="">啟用 :</label>
-        <label for="">是</label>
-            <input type="radio" value = true name="active" v-model="this.active"><label for=""></label>
-            <label for="">否</label>
-            <input type="radio" value = false name="active" v-model="this.active"><label for=""></label>
-        <br/>
-        <label for="">職位 :</label>
-        <input type="text" v-model="this.jobPosition">
-        <br/>
-        <label for="">生日 :</label>
-        <input type="date" v-model="this.birthDate">
-        <br/>
-        <label for="">到職日期 :</label>
-        <input type="date" v-model="this.arrivalDate">
-        <br/>
-        <button @click="addNewEmployees">新增員工</button>
-        <button>取消</button>
+        <table>
+            <label for="">編號 :</label>
+            <input type="text" v-model="this.id">
+            <br/>
+            <label for="">部門 :</label>
+            <select name="" id="" v-model="this.department">
+                <option value="" disabled selected>選擇部門</option>
+                <option v-for="(dep, index) in departments" :key="index" >
+                    {{ dep.name }}
+                </option>
+            </select>
+            <br/>
+            <label for="" >姓名 :</label>
+            <input type="text" v-model="this.name">
+            <br/>
+            <label for="">密碼 :</label>
+            <input type="text" v-model="this.pwd">
+            <br/>
+            <label for="">信箱 :</label>
+            <input type="text" v-model="this.email">
+            <br/>
+            <label for="">啟用 :</label>
+            <label for="">是</label>
+                <input type="radio" value = true name="active" v-model="this.active"><label for=""></label>
+                <label for="">否</label>
+                <input type="radio" value = false name="active" v-model="this.active"><label for=""></label>
+            <br/>
+            <label for="">職位 :</label>
+            <input type="text" v-model="this.jobPosition">
+            <br/>
+            <label for="">生日 :</label>
+            <input type="date" v-model="this.birthDate">
+            <br/>
+            <label for="">到職日期 :</label>
+            <input type="date" v-model="this.arrivalDate">
+            <br/>
+            <button @click="addNewEmployees">新增員工</button>
+            <button @click="goBack">取消</button>
+        </table>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -168,6 +178,10 @@ label{
 }
 .StaffCreateBody{
     width: 100vw;
-    background-color: #092635;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 </style>
