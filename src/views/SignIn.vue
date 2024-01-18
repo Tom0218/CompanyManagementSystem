@@ -1,16 +1,25 @@
-<script></script>
+<script>
+
+</script>
+
 <template>
     <div class="SignInBody">
-        <h1>簽到</h1>
+        <button class="fnbox">簽到</button>
     </div>
 </template>
+
 <style lang="scss" scoped>
-h1{
-    color: whitesmoke;
+
+.fnbox{
+    height: 100px;
+    background-color: rgb(254, 122, 54);
+    margin: 0 5px ;
+    padding: 5px;
 }
+
 .SignInBody{
     height: 100vh;
     width: 100vw;
-    background-color: #092635;
+
 }
 </style>

@@ -50,6 +50,29 @@ export default{
         this.userData = this.getUser();
         },
 
+        //佐證圖片
+        handleFileChange(event){
+            // 獲取文件資料
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload =(e)=> {
+                    // 將讀取到的照片賦予值給預覽img的src
+                    const addFacility = document.getElementById('certificationIMG');
+                    // 顯示預覽img
+                    addFacility.src = e.target.result;
+                    addFacility.style.display= 'block';
+
+                    this.certification = e.target.result;
+                    console.log(e.target.result)
+                    console.log(typeof e.target.result)
+                }
+                // 讀取文件內容
+                reader.readAsDataURL(file);
+            }
+        },
+        
+
         //取消
         cancel(){
             this.$router.push('/Attendance')
@@ -68,12 +91,10 @@ export default{
                 leaveReason : this.leaveReason,
                 totalHour: this.totalHours,
                 reviewerId: this.reviewerId,
-                certification:this.certification,
+                photoBase64:this.certification,
                 appliedDatetime: appliedDateTime,
             }
-            console.log(this.leaveStartDateTime)
-            console.log(this.leaveEndDateTime)
-            console.log(appliedDateTime)
+            console.log(requestData)
              // 发送POST请求
             fetch('http://localhost:8080/api/attendance/leaveApplication/apply', {
                 method: 'POST',
@@ -97,13 +118,14 @@ export default{
                     this.totalHour  =  0;
                     this.reviewerId =  "";
                     this.certification =  "";
-                }
+                } 
             })
             .catch(error => {
                 console.error('Error:', error);
                 // 处理错误
             });
         },
+
         //搜尋主管
         searchSupervisor() {
             const url = 'http://localhost:8080/api/employee/SearchSupervisor';
@@ -212,10 +234,11 @@ export default{
         </div>
         <div>
             <label for="">佐證文件:</label>
-            <input type="file" name="" id="" >
+            <input type="file" name=""  @change="handleFileChange">
+            <img id="certificationIMG" src="" ref="previewImg" style="display: none;  max-width: 200px; max-height: 200px;" >
         </div>
         <div>
-            <button @click="sendLeaveApply">送出</button>
+            <button @click="sendLeaveApply" >送出</button>
             <button @click="cancel">取消</button>
         </div>
 

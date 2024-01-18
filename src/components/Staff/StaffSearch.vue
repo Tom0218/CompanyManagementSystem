@@ -5,6 +5,7 @@ export default{
     data(){
         return{
             userData:[],
+            userInfo:[],
             id:"",
             name:"",
             departments:"",
@@ -31,6 +32,15 @@ export default{
         this.userData = this.getUser();
         // console.log('Fetched userData:', this.userData);
         // 在这里你可以使用从后端获取的用户数据进行其他操作
+        },
+
+        goBack(){
+            this.$router.push('Staff')
+        },
+
+        checkInfo(index){
+            this.userInfo = this.employeeList[index];
+            console.log( this.userInfo)
         },
 
         //清空搜尋條件
@@ -139,62 +149,129 @@ export default{
             <div>
                 <button @click="search">搜尋</button>
                 <button @click="clear">清空條件</button>
+                <button @click="goBack">返回</button>
             </div>
         </div>
-        <div id="contextArea">
-            <table>
+        
+        <div class="aaa">
+            <table class="mainArea">
                 <tr>
                     <th>員工編號</th>
                     <th>部門</th>
                     <th>職位</th>
                     <th>姓名</th>
                     <th>信箱</th>
-                    <th>生日</th>
-                    <th>到職日期</th>
-                    <th>離職日期</th>
-                    <th>離職原因</th>
-                    <th>帳號狀態</th>
-                    <th>特休</th>
-                    <th>病假</th>
                 </tr>
                 <tr v-for="employee,index  in this.employeeList" :key="index">
-                    <td :key="index">{{ employee.id }}</td>
+                    <td>
+                        <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" :key="index"  @click="checkInfo(index)">
+                            {{ employee.id }}
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">詳細資訊</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table >
+                                            <tr>
+                                                <th>員工編號 :</th>
+                                                <td>{{ this.userInfo.id }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>部門 :</th>
+                                                <td>{{ this.userInfo.department }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>職位 :</th>
+                                                <td>{{ this.userInfo.jobPosition }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>姓名 :</th>
+                                                <td>{{ this.userInfo.name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>信箱 :</th>
+                                                <td>{{ this.userInfo.email }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>生日 :</th>
+                                                <td>{{ this.userInfo.birthDate }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>到職日期 :</th>
+                                                <td>{{ this.userInfo.arrivalDate }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>離職日期 :</th>
+                                                <td>{{ this.userInfo.requestData }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>離職原因 :</th>
+                                                <td>{{ this.userInfo.quitReason }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>帳號狀態 :</th>
+                                                <td>{{ this.userInfo.active }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>特休 :</th>
+                                                <td>{{ this.userInfo.annualLeave }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>病假 :</th>
+                                                <td>{{ this.userInfo.sickLeave }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="close">Close</button>
+                                        <button type="button" class="btn btn-secondary" @click="review">Pass</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="review" >Reject</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- <td :key="index">{{ employee.id }}</td> -->
                     <td :key="index">{{ employee.department }}</td>
                     <td :key="index">{{ employee.jobPosition }}</td>
                     <td :key="index">{{ employee.name }}</td>
                     <td :key="index">{{ employee.email }}</td>
-                    <td :key="index" class="date">{{ employee.birthDate }}</td>
-                    <td :key="index" class="date">{{ employee.arrivalDate }}</td>
-                    <td :key="index">{{ employee.resignationDate }}</td>
-                    <td :key="index">{{ employee.quitReason }}</td>
-                    <td :key="index">{{ employee.active }}</td>
-                    <td :key="index">{{ employee.annualLeave }}</td>
-                    <td :key="index">{{ employee.sickLeave }}</td>
                 </tr>
             </table>
         </div>
+            
+        
     </div>
 </template>
 <style lang="scss" scoped>
-
-#contextArea{
+.aaa{
     width: 100%;
-    padding: 1% 0;
-    overflow: auto;
+    display: flex;
+    justify-content: center;
+    padding-top: 1%;
+
 }
+.mainArea{
+    width: 80%;
+
+}
+
 table{
-    width: 100vw;
+    width: 100%;
     background-color: whitesmoke;
     overflow: auto;
 }
 .date{
     width: 7%;
 }
-tr{
-    text-align: center;
-}
+
 td{
-    width: 5%;
+
     border: 1px black solid;
     text-align: left;
     font-weight: bold;
@@ -202,15 +279,17 @@ td{
     // margin: 0;
 }
 th{
-    width: 5%;
+    background-color: rgb(233, 246, 255);
     border: 1px black solid;
     font-weight: bold;
+    padding: 0 1%;
 }
 
 button{
     font-weight: bold;
     margin-left: 10px;
     font-weight: bold;
+    border: none;
 }
 
 select{
@@ -232,10 +311,13 @@ label{
 }
 .funtionArea{
     display: flex;
+    justify-content: center;
 }
 .StaffSearchBody{
     padding: 1% 0 0 0;
-    background-color: #092635;
     width: 100vw;
+    display: flex;
+    flex-direction: column;
+
 }
 </style>

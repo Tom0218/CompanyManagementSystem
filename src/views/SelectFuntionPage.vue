@@ -1,7 +1,28 @@
 <script>
+import {mapState, mapActions} from 'pinia';
+import userInfo  from'../stores/userInfo';
 import { RouterLink} from 'vue-router';
+
 export default{
+    data(){
+        return{
+            userData:[],
+        }
+    },
+    computed:{
+    // 使用 mapState 将 state 映射到组件的计算属性
+    //參數:  資料庫,要用的 state & getters
+    ...mapState(userInfo ,["user"]),
+    },
+
     methods:{
+        ...mapActions(userInfo ,["setUser",'getUser']),
+        async fetchUser() {
+            // 触发从后端获取用户数据的操作
+            this.userData = this.getUser();
+            console.log('Fetched userData:', this.userData);    
+        },
+
         logout(){
             var url = "http://localhost:8080/api/attendance/logout";
             var data = {};
@@ -56,15 +77,21 @@ export default{
 </template>
 <style lang="scss" scoped>
 .fnArea{
+        height: 50vh;
+    width: 70vw;
     display: flex;
+    justify-content: center;
     align-items: center;
+    // background-color: rgb(54, 82, 173);
+    
 }
 .fnbox{
-    height: 100%;
-    background-color: #5C8374;
+    height: 100px;
+    background-color: rgb(254, 122, 54);
     margin: 0 5px ;
     padding: 5px;
 }
+
 p{
     font-size: 16pt;
     font-weight: bold;
@@ -77,7 +104,7 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #092635;
+    background-color: rgb(40, 2, 116);
 }
 
 .Btn{
