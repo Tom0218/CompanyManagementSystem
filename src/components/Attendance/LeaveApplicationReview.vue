@@ -69,7 +69,7 @@ export default{
                 alert('Lack certification');
             }
 
-               // Replace these values with actual reviewerId and applicationNo
+            // Replace these values with actual reviewerId and applicationNo
             const reviewerId = this.userData.id;
             const applicationNo = this.apply.applicationNo;
 

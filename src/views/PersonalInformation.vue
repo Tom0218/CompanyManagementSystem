@@ -78,11 +78,11 @@ export default{
                 <td>{{ this.employee.active }}</td>
             </tr>
             <tr>
-                <th>特休 :</th>
+                <th>特休(餘) :</th>
                 <td>{{ this.employee.annualLeave }}</td>
             </tr>
             <tr>
-                <th>病假 :</th>
+                <th>病假(餘) :</th>
                 <td>{{ this.employee.sickLeave }}</td>
             </tr>
         </table>
