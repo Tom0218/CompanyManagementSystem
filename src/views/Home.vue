@@ -1,8 +1,9 @@
-<script>
+<script >
 import {mapState, mapActions} from 'pinia';
 import userInfo  from'../stores/userInfo';
+import Swal from 'sweetalert2'
 
-export default{
+export default {
   data(){
     return{
       page:"未登入",
@@ -152,8 +153,15 @@ export default{
 
     login(){
       //判斷是否為空
+
 			if(this.id==""||this.pwd==""){
-				alert("Cannot be null!!")
+
+        Swal.fire({
+                title: '輸入不得為空',
+                icon: 'warning',
+                confirmButtonText: '確認'
+              })
+
 				return
 			}
       var url = "http://localhost:8080/api/attendance/login";
@@ -173,48 +181,61 @@ export default{
         }),
         })
         .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
+        .catch((error) => console.error("Error:", error)
+        
+          )
         .then((response) =>{ 
-          alert(response.rtnCode)
-            console.log("Login:", response,)   
-            if(response.rtnCode == "SUCCESSFUL"){
-              this.info = response;
-              this.setUser(response.employee);
-              this.$router.push("/SelectFuntionPage");
-              return
-            }
+          console.log("Login response :", response,)   
+            
+          if(response.rtnCode == "SUCCESSFUL"){
+            this.info = response;
+            this.setUser(response.employee);
+            this.$router.push("/SelectFuntionPage");
+          
             return
-        });
-    }
-  }
+          }
 
+          Swal.fire({
+              title: response.rtnCode,
+              icon: 'error',
+              confirmButtonText: '確認'
+            })
+
+          return
+        });
+    },
+
+
+  }
 }
 </script>
 
 <template>
-    <div class="maimArea">
-      <h1>xx有限公司差勤管理系統</h1>
-      <div>
-        <label>帳號:</label>
-        <input type="text"  v-model="id">
+  <div class="maimArea">
+    <div class="topArea">
+      <h1>差勤管理系統</h1>
+      <label for=""> account :</label>
+      <input type="text" v-model="id"  id="colorInput" >
+      <br/>
+      <label for="">password : </label>
+      <input type="text"  v-model="pwd" id="colorInput">
+
+      <div class="btnArea wrapper">
+        <button @click="login" class='btn color_transition' >登入</button>
+        <hr/>
       </div>
-      <div>
-        <label>密碼:</label>
-        <input type="password"  v-model="pwd">
-      </div>
-      <div>
-        <button @click="login">登入</button>
-        <!-- Button trigger modal -->
-        <button @click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal">忘記密碼</button>
-        <!-- Modal -->
-        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">忘記密碼</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
+        <p click="forgotPwd"  data-bs-toggle="modal" data-bs-target="#exampleModal"  id="forgotPwd"  style="cursor: pointer"> Forgot Password ?</p>
+      
+    </div>
+    <div>
+      <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">忘記密碼</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                 <div class="inputArea">
                   <div>
                     <label for="" class="lable">請輸入員工編號或電子信箱:</label>
@@ -229,24 +250,84 @@ export default{
                   <input type="text" v-model="authCode">
                   <br/>
                   <label class="lable">新密碼 :</label>
-                  <input type="text" v-model="newPwd">
+                    <input type="text" v-model="newPwd">
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary" @click="changePwd">完成</button>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  <button type="button" class="btn btn-primary" @click="changePwd">完成</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </div>
+  </div>
+    
 </template>
 
 <style lang="scss" scoped>
 
+
+#forgotPwd{
+  width: 36%;
+  margin: 2% 32%;
+  background-color: rgb(54, 82, 173);
+  border: none;
+  color: rgba(199, 194, 194, 0.703);
+}
+
+#forgotPwd:hover {
+  color: whitesmoke;
+}
+
+/////////////////////////////////////////////btn
+.wrapper {
+  text-align: center;
+  height: 80px;
+}
+
+.btn {
+  -webkit-border-radius: 11;
+  -moz-border-radius: 11;
+  border-radius: 11px;
+  font-family: Arial;
+  color: #FFFFFF;
+  font-size: 20px;
+  padding: 15px 30px 15px 30px;
+  text-decoration: none;
+  border: none;
+  // margin-top: 25px;
+  cursor: pointer;
+}
+
+.color_transition {
+  background-color: #00A0D6;
+  transition: background-color 0.4s;
+}
+
+.color_transition:hover {
+  background-color: #007DA7;
+}
+/////////////////////////////////////////////btn
+
+input{
+  border-radius: 10px;
+  padding: 1% 3%;
+  caret-color: black; /* 透明 */
+
+}
+
+.topArea{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 25%;
+}
+
 #idAndEmailInputBox{
-  width: 74%;
+  width: 100%;
 }
 .inputArea{
   width: 70%;
@@ -259,28 +340,37 @@ export default{
   width: 115%;
 }
 
+
 .lable{
   color: black;
 }
 
 button{
   font-weight: bold;
+  margin: 1% 0;
+  border-radius: 10px;
+}
+
+.btnArea{
+  margin: 2% 0;
+  display: flex;
+  flex-direction: column;
 }
 
 label{
   color: whitesmoke;
   font-weight: bold;
+  width: auto;
 }
 
 h1{
   color: whitesmoke;
+  text-align: center;
 }
 
-//input
 #account,#pwd{
   margin-left: 5px;
 }
-//文字
 
 //架構
 .maimArea{
@@ -288,6 +378,7 @@ h1{
   height: auto;
   width: 70vw;
   background-color: rgb(54, 82, 173);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
